@@ -1,7 +1,14 @@
-# Custom project from start.vaadin.com
+# Fusion Translations PoC
+This is a project for testing approaches to translating strings in Vaadin Fusion. The approach here uses [`lit-translate`](https://github.com/andreasbm/lit-translate).
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+The reasoning behind this choice is that it's easy to customize how the strings are loaded, and it integrates well with Lit.
+
+This project stores translations in a standard resource bundle (`src/main/resources/messages_<lang>.properties`). The translations are converted to a JSON object and served to the client
+through the `TranslationEndpoint`.
+
+On the client, the `translate` directive from `lit-translate` is used, in order for components to be updated once the language changes.
+
+The language is set in the `main-layout.ts` through the `app-store.ts`. The choice is currently not persisted across browser reloads.
 
 ## Running the application
 The project is a standard Maven project. To run it from the command line,
@@ -11,16 +18,6 @@ http://localhost:8080 in your browser.
 You can also import the project to your IDE of choice as you would with any 
 Maven project. Read more on [how to set up a development environment for 
 Vaadin projects](https://vaadin.com/docs/latest/guide/install) (Windows, Linux, macOS).
-
-## Deploying to Production
-To create a production build, call `mvnw clean package -Pproduction` (Windows),
-or `./mvnw  clean package -Pproduction` (Mac & Linux).
-This will build a JAR file with all the dependencies and front-end resources,
-ready to be deployed. The file can be found in the `target` folder after the build completes.
-
-Once the JAR file is built, you can run it using
-`java -jar target/myapp-1.0-SNAPSHOT.jar` (NOTE, replace
-`myapp-1.0-SNAPSHOT.jar` with the name of your jar).
 
 ## Project structure
 
@@ -37,13 +34,3 @@ CSS styles</td></tr>
 source directory, contains the server-side Java views</td></tr>
   <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<code>Application.java</code></td><td>Server entry-point</td></tr>
 </table>
-
-## Useful links
-
-- Read the documentation at [vaadin.com/docs](https://vaadin.com/docs/latest/).
-- Create new projects at [start.vaadin.com](https://start.vaadin.com/).
-- Search UI components and their usage examples at [vaadin.com/components](https://vaadin.com/components).
-- Find a collection of solutions to common use cases in [Vaadin Cookbook](https://cookbook.vaadin.com/).
-- Find Add-ons at [vaadin.com/directory](https://vaadin.com/directory).
-- Ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/vaadin) or join our [Discord channel](https://discord.gg/MYFq5RTbBn).
-- Report issues, create pull requests in [GitHub](https://github.com/vaadin/platform).
