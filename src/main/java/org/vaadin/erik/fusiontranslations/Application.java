@@ -1,5 +1,6 @@
 package org.vaadin.erik.fusiontranslations;
 
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 
@@ -19,6 +20,7 @@ import com.vaadin.flow.theme.Theme;
 @SpringBootApplication
 @Theme(value = "fusiontranslations")
 @PWA(name = "Fusion Translations", shortName = "Fusion Translations", offlineResources = {"images/logo.png"})
+@NpmPackage(value = "lit-translate", version = "v1.2.1")
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {

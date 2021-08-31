@@ -1,5 +1,6 @@
 import { RouterLocation } from '@vaadin/router';
 import { makeAutoObservable } from 'mobx';
+import { use } from 'lit-translate';
 
 export class AppStore {
   applicationName = 'Fusion Translations';
@@ -7,7 +8,9 @@ export class AppStore {
   // The location, relative to the base path, e.g. "hello" when viewing "/hello"
   location = '';
 
-  currentViewTitle = '';
+  currentViewTitleKey = '';
+
+  language = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -21,7 +24,12 @@ export class AppStore {
     } else {
       this.location = location.pathname;
     }
-    this.currentViewTitle = (location?.route as any)?.title || '';
+    this.currentViewTitleKey = (location?.route as any)?.titleKey || '';
+  }
+
+  async setLanguage(language: string) {
+    await use(language);
+    this.language = language;
   }
 }
 export const appStore = new AppStore();

@@ -19,6 +19,7 @@ import SamplePersonModel from 'Frontend/generated/org/vaadin/erik/fusiontranslat
 import * as SamplePersonEndpoint from 'Frontend/generated/SamplePersonEndpoint';
 import { customElement, html, PropertyValues, query } from 'lit-element';
 import { View } from '../view';
+import { get, translate } from 'lit-translate';
 
 @customElement('add-employee-view')
 export class AddEmployeeViewElement extends View {
@@ -35,18 +36,18 @@ export class AddEmployeeViewElement extends View {
 
   render() {
     return html`
-      <h3>Personal information</h3>
+      <h3>${translate('addemployee.personal_information')}</h3>
       <vaadin-form-layout style="width: 100%;">
-        <vaadin-text-field label="First name" ...=${field(this.binder.model.firstName)}></vaadin-text-field>
-        <vaadin-text-field label="Last name" ...=${field(this.binder.model.lastName)}></vaadin-text-field>
-        <vaadin-date-picker label="Birthday" ...=${field(this.binder.model.dateOfBirth)}></vaadin-date-picker>
-        <vaadin-custom-field label="Phone number" ...=${field(this.binder.model.phone)}>
+        <vaadin-text-field label="${translate('addemployee.first_name')}" ...=${field(this.binder.model.firstName)}></vaadin-text-field>
+        <vaadin-text-field label="${translate('addemployee.last_name')}" ...=${field(this.binder.model.lastName)}></vaadin-text-field>
+        <vaadin-date-picker label="${translate('addemployee.birthday')}" ...=${field(this.binder.model.dateOfBirth)}></vaadin-date-picker>
+        <vaadin-custom-field label="${translate('addemployee.phone_number')}" ...=${field(this.binder.model.phone)}>
           <vaadin-horizontal-layout theme="spacing">
             <vaadin-combo-box
               id="countryCode"
               style="width: 120px;"
               pattern="\\+\\d*"
-              placeholder="Country"
+              placeholder="${translate('addemployee.country')}"
               prevent-invalid-input
             ></vaadin-combo-box>
             <vaadin-text-field
@@ -56,12 +57,12 @@ export class AddEmployeeViewElement extends View {
             ></vaadin-text-field>
           </vaadin-horizontal-layout>
         </vaadin-custom-field>
-        <vaadin-email-field label="Email address" ...=${field(this.binder.model.email)}"></vaadin-email-field>
-        <vaadin-text-field label="Occupation" ...=${field(this.binder.model.occupation)}"></vaadin-text-field>
+        <vaadin-email-field label="${translate('addemployee.email_address')}" ...=${field(this.binder.model.email)}"></vaadin-email-field>
+        <vaadin-text-field label="${translate('addemployee.occupation')}" ...=${field(this.binder.model.occupation)}"></vaadin-text-field>
       </vaadin-form-layout>
       <vaadin-horizontal-layout class="button-layout" theme="spacing">
-        <vaadin-button theme="primary" @click="${this.save}"> Save </vaadin-button>
-        <vaadin-button @click="${this.clearForm}"> Cancel </vaadin-button>
+        <vaadin-button theme="primary" @click="${this.save}">${translate('addemployee.save')}</vaadin-button>
+        <vaadin-button @click="${this.clearForm}">${translate('addemployee.cancel')}</vaadin-button>
       </vaadin-horizontal-layout>
     `;
   }
