@@ -27,7 +27,7 @@ export class MainLayout extends Layout {
       <vaadin-app-layout primary-section="drawer">
         <header class="bg-base border-b border-contrast-10 box-border flex h-xl items-center w-full" slot="navbar">
           <vaadin-drawer-toggle aria-label="Menu toggle" class="text-secondary" theme="contrast"></vaadin-drawer-toggle>
-          <h1 class="m-0 text-l">${translate(appStore.currentViewTitleKey)}</h1>
+          <h1 class="m-0 text-l">${appStore.currentViewTitleKey && translate(appStore.currentViewTitleKey)}</h1>
           <div style="margin-left: auto; margin-right: var(--lumo-space-l);">
             <vaadin-button theme="tertiary" 
                            style="${appStore.language === 'en' ? 'font-weight: bold;' : ''}"

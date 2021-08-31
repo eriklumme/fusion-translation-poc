@@ -19,7 +19,7 @@ import SamplePersonModel from 'Frontend/generated/org/vaadin/erik/fusiontranslat
 import * as SamplePersonEndpoint from 'Frontend/generated/SamplePersonEndpoint';
 import { customElement, html, PropertyValues, query } from 'lit-element';
 import { View } from '../view';
-import { get, translate } from 'lit-translate';
+import {  translate } from 'lit-translate';
 
 @customElement('add-employee-view')
 export class AddEmployeeViewElement extends View {
