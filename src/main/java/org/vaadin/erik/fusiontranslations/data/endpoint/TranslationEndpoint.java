@@ -28,7 +28,7 @@ public class TranslationEndpoint {
      The usefulness of this also depends on how the resource bundles are cached in the
      ResourceBundle class.
      */
-    private static final Map<ResourceBundle, ObjectNode> jsonCache = new HashMap<>();
+    private static final Map<ResourceBundle, String> jsonCache = new HashMap<>();
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -38,7 +38,7 @@ public class TranslationEndpoint {
         this.httpSession = httpSession;
     }
 
-    public ObjectNode loadTranslations(String language) {
+    public String loadTranslations(String language) {
         Locale locale = Locale.forLanguageTag(language);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
 
@@ -49,7 +49,7 @@ public class TranslationEndpoint {
         return jsonCache.computeIfAbsent(resourceBundle, this::convertBundleToJson);
     }
 
-    private ObjectNode convertBundleToJson(ResourceBundle resourceBundle) {
+    private String convertBundleToJson(ResourceBundle resourceBundle) {
         ObjectNode result = objectMapper.createObjectNode();
         for (String key: resourceBundle.keySet()) {
             ObjectNode currentObject = result;
@@ -66,7 +66,7 @@ public class TranslationEndpoint {
             }
             currentObject.put(keyParts[keyParts.length - 1], resourceBundle.getString(key));
         }
-        return result;
+        return result.toString();
     }
 
     private boolean isDevelopmentMode() {

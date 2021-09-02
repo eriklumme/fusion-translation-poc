@@ -20,6 +20,6 @@ window.addEventListener('vaadin-router-location-changed', (e) => {
 registerTranslateConfig({
   loader: async lang => {
     return TranslationEndpoint.loadTranslations(lang)
-        .then(res => (<any>res).object);
+        .then(res => JSON.parse(res));
   }
 });
