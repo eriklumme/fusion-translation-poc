@@ -7,11 +7,11 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.connect.Endpoint;
-import elemental.json.Json;
-import elemental.json.JsonObject;
 
 /**
  * @author erik@vaadin.com
@@ -28,7 +28,9 @@ public class TranslationEndpoint {
      The usefulness of this also depends on how the resource bundles are cached in the
      ResourceBundle class.
      */
-    private static final Map<ResourceBundle, JsonObject> jsonCache = new HashMap<>();
+    private static final Map<ResourceBundle, ObjectNode> jsonCache = new HashMap<>();
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final HttpSession httpSession;
 
@@ -36,7 +38,7 @@ public class TranslationEndpoint {
         this.httpSession = httpSession;
     }
 
-    public JsonObject loadTranslations(String language) {
+    public ObjectNode loadTranslations(String language) {
         Locale locale = Locale.forLanguageTag(language);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
 
@@ -47,18 +49,18 @@ public class TranslationEndpoint {
         return jsonCache.computeIfAbsent(resourceBundle, this::convertBundleToJson);
     }
 
-    private JsonObject convertBundleToJson(ResourceBundle resourceBundle) {
-        JsonObject result = Json.createObject();
+    private ObjectNode convertBundleToJson(ResourceBundle resourceBundle) {
+        ObjectNode result = objectMapper.createObjectNode();
         for (String key: resourceBundle.keySet()) {
-            JsonObject currentObject = result;
+            ObjectNode currentObject = result;
             String[] keyParts = key.split("\\.");
 
             for (int i = 0; i < keyParts.length - 1; i++) {
                 String part = keyParts[i];
-                JsonObject nextObject = currentObject.getObject(part);
+                ObjectNode nextObject = (ObjectNode) currentObject.get(part);
                 if (nextObject == null) {
-                    nextObject = Json.createObject();
-                    currentObject.put(part, nextObject);
+                    nextObject = objectMapper.createObjectNode();
+                    currentObject.set(part, nextObject);
                 }
                 currentObject = nextObject;
             }
